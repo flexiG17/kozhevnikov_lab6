@@ -1,88 +1,7 @@
+package MyProgram;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-class InvalidCalculationException extends Exception {
-    public InvalidCalculationException(String message) {
-        super(message);
-    }
-}
-
-class PhysicalCalculation {
-    private final double result;
-
-    public PhysicalCalculation(double result) {
-        this.result = result;
-    }
-
-    public double calculate() {
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Результат: " + calculate();
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        };
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        };
-        PhysicalCalculation currentType = (PhysicalCalculation) object;
-        return Double.compare(currentType.calculate(), calculate()) == 0;
-    }
-}
-
-class CentripetalAcceleration extends PhysicalCalculation {
-    private final double speed;
-    private final double radius;
-
-    public CentripetalAcceleration(double speed, double radius) throws InvalidCalculationException {
-        super(Math.pow(speed, 2) / radius);
-        if (radius <= 0) {
-            throw new InvalidCalculationException("Радиус должен быть положительным числом!");
-        };
-        this.speed = speed;
-        this.radius = radius;
-    }
-
-    @Override
-    public double calculate() {
-        return Math.pow(speed, 2) / radius;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Центростремительное ускорение a = %.3f м/с^2", calculate());
-    }
-}
-
-class CircularVelocity extends PhysicalCalculation {
-    private final double radius;
-    private final double period;
-
-    public CircularVelocity(double radius, double period) throws InvalidCalculationException {
-        super((2 * Math.PI * radius) / period);
-        if (period <= 0) {
-            throw new InvalidCalculationException("Период должен быть положительным числом!");
-        };
-        this.radius = radius;
-        this.period = period;
-    }
-
-    @Override
-    public double calculate() {
-        return (2 * Math.PI * radius) / period;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Круговая скорость V = %.3f м/с", calculate());
-    }
-}
 
 public class MyProgram {
     private static void printProgramDescription() {
@@ -176,26 +95,26 @@ public class MyProgram {
         while (true) {
             System.out.print("Для продолжения введите цифру от 1 до 4: ");
             try {
-            programCode = scanner.nextInt();
-            if (programCode < 1 || programCode > 4) {
-                System.out.println("Введённое значение не может быть меньше 1 и больше 4!");
-                continue;
-            }
-            switch (programCode) {
-                case 1:
-                    performCalculations();
-                    break;
-                case 2:
-                    printProgramDescription();
-                    break;
-                case 3:
-                    printProgrammerDescription();
-                    break;
-                case 4:
-                    System.out.println("До свидания!");
-                    return;
-            }
-            System.out.println(programText);
+                programCode = scanner.nextInt();
+                if (programCode < 1 || programCode > 4) {
+                    System.out.println("Введённое значение не может быть меньше 1 и больше 4!");
+                    continue;
+                }
+                switch (programCode) {
+                    case 1:
+                        performCalculations();
+                        break;
+                    case 2:
+                        printProgramDescription();
+                        break;
+                    case 3:
+                        printProgrammerDescription();
+                        break;
+                    case 4:
+                        System.out.println("До свидания!");
+                        return;
+                }
+                System.out.println(programText);
             } catch (InputMismatchException e) {
                 System.out.println("Введите целое число!");
                 scanner.nextLine();
